@@ -1,0 +1,23 @@
+{
+  "files": [],
+  "references": [
+    {
+      "path": "apps/api"
+    },
+    {
+      "path": "apps/app"
+    },
+    {
+      "path": "packages/sdk"
+    },
+    {
+      "path": "packages/messages"
+    },
+    {
+      "path": "packages/ui"
+    },
+    {
+      "path": "packages/coin-names"
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "name": "@furious-abacus/sdk",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Typed API client and Hyperliquid SDK wrapper",
+  "author": "Michał Kamil Przybysz <m.przybysz@blackmoose.pl>",
+  "license": "AGPL-3.0-only",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "lint": "biome check .",
+    "check-types": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@nktkas/hyperliquid": "^0.31.0",
+    "ky": "^1.14.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "typescript": "^5.9.3"
+  },
+  "packageManager": "pnpm@10.0.0",
+  "engines": {
+    "node": ">=22"
+  }
+}

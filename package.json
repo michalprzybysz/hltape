@@ -1,0 +1,50 @@
+{
+  "name": "@furious-abacus/monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Furious Abacus — self-hostable trailing stop-loss automation for Hyperliquid perpetuals",
+  "author": "Michał Kamil Przybysz <m.przybysz@blackmoose.pl>",
+  "license": "AGPL-3.0-only",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/michalprzybysz/furious-abacus.git"
+  },
+  "homepage": "https://github.com/michalprzybysz/furious-abacus#readme",
+  "bugs": {
+    "url": "https://github.com/michalprzybysz/furious-abacus/issues"
+  },
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "check-types": "turbo run check-types",
+    "db:generate": "pnpm --filter @furious-abacus/api exec drizzle-kit generate",
+    "db:migrate": "pnpm --filter @furious-abacus/api exec drizzle-kit migrate",
+    "db:push": "pnpm --filter @furious-abacus/api exec drizzle-kit push",
+    "db:studio": "pnpm --filter @furious-abacus/api exec drizzle-kit studio"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.4.8",
+    "@commitlint/cli": "^20.5.0",
+    "@commitlint/config-conventional": "^20.5.0",
+    "@secretlint/core": "^11.3.1",
+    "@secretlint/secretlint-rule-preset-recommend": "^11.3.1",
+    "commitlint": "^20.5.0",
+    "lefthook": "^2.1.4",
+    "secretlint": "^11.3.1",
+    "shadcn": "^4.0.8",
+    "turbo": "^2.8.20",
+    "typescript": "5.9.3"
+  },
+  "pnpm": {
+    "auditConfig": {
+      "ignoreGhsas": [
+        "GHSA-pw9m-5jxm-xr6h"
+      ]
+    }
+  },
+  "packageManager": "pnpm@10.0.0",
+  "engines": {
+    "node": ">=22"
+  }
+}

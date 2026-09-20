@@ -1,0 +1,72 @@
+name: Feature request
+description: Propose a change or an addition to Furious Abacus
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Describe the problem before the solution. The best feature requests explain a situation
+        the software handles badly today; the implementation is usually negotiable.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: The problem
+      description: What are you trying to do that the project makes hard or impossible right now?
+      placeholder: |
+        I run my own instance and want trailing stops to widen automatically when realised
+        volatility spikes, so a normal wick does not close my position.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: What you would like to happen. Sketch the behaviour, the config or the UI.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: workspace
+    attributes:
+      label: Which part of the monorepo would this touch
+      options:
+        - api (Fastify backend and workers)
+        - app (Next.js dashboard)
+        - sdk (typed API client)
+        - ui (shared components)
+        - messages (i18n)
+        - coin-names
+        - not sure
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives you considered
+      description: Including working around it outside the project, and why that is not enough.
+    validations:
+      required: false
+
+  - type: dropdown
+    id: contribution
+    attributes:
+      label: Would you be willing to implement this?
+      options:
+        - "Yes, I would open a pull request"
+        - "Yes, with guidance on where to start"
+        - "No, I am only proposing it"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before you submit
+      options:
+        - label: I searched the existing issues and this is not a duplicate.
+          required: true
+        - label: This request contains no private keys, wallet addresses or API credentials.
+          required: true

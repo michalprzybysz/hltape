@@ -1,0 +1,34 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1764977716284,
+      "tag": "0000_orange_slayback",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1765130106097,
+      "tag": "0001_add_admin_fields",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1766148662488,
+      "tag": "0002_smooth_siren",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1775941700000,
+      "tag": "0003_drop_hl_order_id",
+      "breakpoints": true
+    }
+  ]
+}

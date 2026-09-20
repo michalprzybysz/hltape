@@ -1,0 +1,15 @@
+pre-commit:
+  parallel: true
+  commands:
+    lint:
+      glob: "*.{js,ts,jsx,tsx,json,css}"
+      stage_fixed: true
+      run: pnpm biome check --write {staged_files}
+    secrets:
+      run: pnpm secretlint {staged_files}
+
+commit-msg:
+  commands:
+    commitlint:
+      run: pnpm commitlint --edit {1}
+

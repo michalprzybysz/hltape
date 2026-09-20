@@ -1,0 +1,15 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Report a security vulnerability
+    url: https://github.com/michalprzybysz/furious-abacus/security/policy
+    about: >-
+      This project handles wallet keys and executes real trades. Never report a vulnerability in a
+      public issue. Use GitHub private vulnerability reporting or the contact in SECURITY.md.
+  # Re-add a "Questions and usage help" link here once Discussions is enabled on the
+  # repository; while it is off, https://github.com/michalprzybysz/furious-abacus/discussions
+  # returns 404 for everyone who clicks it.
+  - name: Contributing guide
+    url: https://github.com/michalprzybysz/furious-abacus/blob/main/CONTRIBUTING.md
+    about: >-
+      Local setup, the monorepo layout, Conventional Commit rules and the testnet-only
+      development policy.

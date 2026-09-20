@@ -1,0 +1,9 @@
+@import "@rainbow-me/rainbowkit/styles.css";
+@import "../../../../packages/ui/src/styles/globals.css";
+
+@source "../../../../packages/ui/src";
+
+html,
+body {
+  min-height: 100vh;
+}

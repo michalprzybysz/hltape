@@ -1,0 +1,123 @@
+name: Bug report
+description: Something in Furious Abacus behaves incorrectly
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before you write anything: this project handles wallet keys and submits real orders.
+        **Redact every secret from what you are about to paste.** Private keys, agent-wallet
+        keys, `MASTER_KEY_HEX`, session cookies and API credentials do not belong in a public
+        issue — not in the body, not in a log excerpt, not in a screenshot.
+
+        Found a security vulnerability rather than a bug? Do not file it here. Read `SECURITY.md`
+        in the repository root and report it privately.
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: What happened
+      description: What went wrong, and what you expected instead.
+      placeholder: |
+        Expected: the trailing stop follows the price up and stays 2% below the high.
+        Actual: it moved once and then stopped updating.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: workspace
+    attributes:
+      label: Affected workspace
+      description: Where you believe the problem lives. Pick "not sure" if you do not know.
+      options:
+        - api (Fastify backend and workers)
+        - app (Next.js dashboard)
+        - sdk (typed API client)
+        - ui (shared components)
+        - messages (i18n)
+        - coin-names
+        - not sure
+    validations:
+      required: true
+
+  - type: dropdown
+    id: network
+    attributes:
+      label: Network
+      description: Which Hyperliquid network you reproduced this on.
+      options:
+        - Testnet (TESTNET=true)
+        - Mainnet (TESTNET=false)
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: The exact sequence. A reproduction that works from a clean checkout is worth ten descriptions.
+      placeholder: |
+        1. Start both sides on testnet: TESTNET=true in apps/api/.env and
+           NEXT_PUBLIC_TESTNET=true in apps/app/.env.local
+        2. Open a long position on ETH from the dashboard
+        3. Attach a trailing stop at 2%
+        4. Wait for the price to move up 1%
+        5. Observe the order in the positions table
+    validations:
+      required: true
+
+  - type: input
+    id: node-version
+    attributes:
+      label: Node version
+      description: Output of `node --version`.
+      placeholder: v22.14.0
+    validations:
+      required: true
+
+  - type: input
+    id: pnpm-version
+    attributes:
+      label: pnpm version
+      description: Output of `pnpm --version`.
+      placeholder: 10.0.0
+    validations:
+      required: true
+
+  - type: input
+    id: commit
+    attributes:
+      label: Commit or version
+      description: The commit SHA or tag you are running.
+      placeholder: d086672
+    validations:
+      required: false
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs and errors
+      description: Relevant log output or stack traces. This block is rendered as code, so no backticks needed.
+      render: text
+    validations:
+      required: false
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Anything else
+      description: Environment notes, deployment target, browser, whatever you think matters.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: redaction
+    attributes:
+      label: Before you submit
+      options:
+        - label: I have redacted all private keys, agent-wallet keys, master keys, wallet addresses and API credentials from this report, including from any logs and screenshots.
+          required: true
+        - label: I searched the existing issues and this is not a duplicate.
+          required: true
+        - label: This is a bug, not a security vulnerability. Vulnerabilities go through SECURITY.md.
+          required: true

@@ -1,0 +1,18 @@
+node_modules
+.turbo
+*.log
+.env
+.env.*
+!.env.example
+.git
+.github
+.vscode
+.DS_Store
+*.md
+!README.md
+
+# Keep only necessary files
+apps/app
+packages/*/test
+packages/*/dist
+apps/api/test

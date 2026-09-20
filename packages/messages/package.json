@@ -1,0 +1,23 @@
+{
+  "name": "@furious-abacus/messages",
+  "version": "1.0.0",
+  "private": true,
+  "description": "i18n message types and translations",
+  "author": "Michał Kamil Przybysz <m.przybysz@blackmoose.pl>",
+  "license": "AGPL-3.0-only",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "lint": "biome check .",
+    "check-types": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "typescript": "^5.9.3"
+  },
+  "packageManager": "pnpm@10.0.0",
+  "engines": {
+    "node": ">=22"
+  }
+}
