@@ -33,34 +33,26 @@ jobs:
         # reachable today and pretending otherwise would make this check
         # meaningless.
         #
-        # As of 2026-09-20 `pnpm audit --prod` reports 142 findings across 124
-        # distinct advisories: 7 low, 75 moderate, 58 high, 2 critical (1 of
-        # which is ignored, see below). Every direct dependency with a fix
-        # available has already been updated. What is left is transitive and
-        # needs an upstream release, not a change in this repo:
+        # As of 2026-09-20 `pnpm audit --prod` reports 19 findings across 16
+        # distinct advisories: 16 moderate, 3 high, no criticals and no lows.
+        # Nothing is suppressed: the root package.json carries no
+        # pnpm.auditConfig, so that number is the whole tree. Every direct
+        # dependency with a fix available has already been updated. What is
+        # left is transitive and needs an upstream release, not a change in
+        # this repo:
         #
-        #   - The large majority sits under @rainbow-me/rainbowkit -> wagmi ->
-        #     @wagmi/connectors -> @walletconnect/* -> @reown/appkit: axios,
-        #     fast-uri, brace-expansion, minimatch, picomatch, hono, ws,
-        #     socket.io-parser, form-data, lodash, browserslist, defu, h3.
-        #     These reach the browser bundle through the wallet connectors and
-        #     cannot be dropped without replacing the wallet connection layer.
-        #   - Smaller clusters come from @sentry/node, @sentry/nextjs,
-        #     @logtail/node and viem.
-        #
-        # Ignored by GHSA id in the root package.json (pnpm.auditConfig.ignoreGhsas):
-        #
-        #   GHSA-pw9m-5jxm-xr6h (critical) - better-auth: OAuth refresh-token
-        #   replay via missing client authentication on the oidc-provider and
-        #   mcp plugins. Fixed upstream in better-auth >= 1.6.11.
-        #   This repo pins better-auth to ~1.4.22 because 1.5+ changes the SIWE
-        #   client API (authClient.siwe.nonce / .verify no longer accept
-        #   walletAddress), so upgrading is a code change plus an auth schema
-        #   regeneration, not a version bump. The vulnerable code path is not
-        #   reachable in this configuration: apps/api/src/lib/auth.ts registers
-        #   only the siwe and admin plugins, and neither oidcProvider nor mcp
-        #   is used anywhere in the tree. Drop this ignore the moment
-        #   better-auth is upgraded - it is a deferral, not a verdict.
+        #   - axios (10 of the 16) arrives only through the pinned
+        #     @coinbase/cdp-sdk override, under wagmi -> @wagmi/connectors ->
+        #     @base-org/account.
+        #   - ws, uuid and decode-uri-component are browser-side only. Every
+        #     path is rooted in apps/app: siwe -> ethers, and
+        #     @rainbow-me/rainbowkit -> wagmi -> @wagmi/connectors ->
+        #     @walletconnect/* -> @reown/appkit / @metamask/sdk. NONE of them
+        #     reaches apps/api. They cannot be dropped without replacing the
+        #     wallet connection layer.
+        #   - valibot is the only one that does reach the API, via
+        #     @nktkas/hyperliquid in both apps/api and packages/sdk. esbuild
+        #     comes from the drizzle-kit toolchain and is build-time only.
         #
         # What this gate actually promises: a NEW critical advisory anywhere in
         # the production dependency tree turns the build red. It does not

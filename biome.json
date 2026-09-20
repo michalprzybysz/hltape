@@ -1,5 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.4.8/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.5.14/schema.json",
   "root": true,
   "vcs": {
     "enabled": true,
@@ -15,6 +15,18 @@
     "lineWidth": 100
   },
   "overrides": [
+    {
+      "includes": [
+        "**/*.svg"
+      ],
+      "linter": {
+        "rules": {
+          "a11y": {
+            "noSvgWithoutTitle": "off"
+          }
+        }
+      }
+    },
     {
       "includes": [
         "**/packages/ui/src/components/**"

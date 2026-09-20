@@ -24,23 +24,21 @@
     "db:studio": "pnpm --filter @furious-abacus/api exec drizzle-kit studio"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.4.8",
-    "@commitlint/cli": "^20.5.0",
-    "@commitlint/config-conventional": "^20.5.0",
-    "@secretlint/core": "^11.3.1",
-    "@secretlint/secretlint-rule-preset-recommend": "^11.3.1",
-    "commitlint": "^20.5.0",
-    "lefthook": "^2.1.4",
-    "secretlint": "^11.3.1",
-    "shadcn": "^4.0.8",
-    "turbo": "^2.8.20",
+    "@biomejs/biome": "2.5.14",
+    "@commitlint/cli": "^21.2.3",
+    "@commitlint/config-conventional": "^21.2.3",
+    "@secretlint/core": "^13.0.5",
+    "@secretlint/secretlint-rule-preset-recommend": "^13.0.5",
+    "commitlint": "^21.2.3",
+    "lefthook": "^2.1.14",
+    "secretlint": "^13.0.5",
+    "shadcn": "^4.21.0",
+    "turbo": "^2.11.2",
     "typescript": "5.9.3"
   },
   "pnpm": {
-    "auditConfig": {
-      "ignoreGhsas": [
-        "GHSA-pw9m-5jxm-xr6h"
-      ]
+    "overrides": {
+      "@coinbase/cdp-sdk": "1.52.0"
     }
   },
   "packageManager": "pnpm@10.0.0",

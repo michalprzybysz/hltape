@@ -32,6 +32,9 @@ export const session = pgTable("session", {
   userId: text("user_id")
     .notNull()
     .references(() => user.id, { onDelete: "cascade" }),
+  // Declared by the admin plugin. better-auth 1.7 validates the Drizzle schema against the
+  // plugin schemas at runtime and throws SCHEMA_MISMATCH on the first auth request without it.
+  impersonatedBy: text("impersonated_by"),
 });
 
 export const account = pgTable("account", {

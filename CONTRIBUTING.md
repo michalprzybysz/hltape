@@ -224,6 +224,32 @@ This is the part that matters. Read it.
   development checkout at a wallet holding real funds.
 - Found a vulnerability instead of a bug? Do not open an issue. Follow [SECURITY.md](SECURITY.md).
 
+## Dependencies
+
+Two pins in this repo are load-bearing. Both are there for a reason that is not obvious from the
+version number, so read this before you "just update" them.
+
+**`@coinbase/cdp-sdk` is pinned to `1.52.0`** via `pnpm.overrides` in the root `package.json`. From
+`1.53.0` onward the package imports `@x402/core`, `@x402/evm` and `@x402/svm`. Those are declared as
+*optional* peer dependencies, so they are correctly not installed — but Turbopack resolves dynamic
+`import()` statically and `next build` fails with eight `Module not found` errors. `1.52.0` is the
+newest release with no `@x402` imports. The package reaches us transitively, through
+`@rainbow-me/rainbowkit -> wagmi -> @wagmi/connectors -> @base-org/account`. It also accounts for 10
+of the repo's remaining dependency advisories. Drop the override once upstream either ships those
+modules as real dependencies or guards the imports.
+
+**`wagmi` is held at `2.19.5`** — the last 2.x release. `wagmi` 3 is not adoptable here: no published
+RainbowKit accepts it (`@rainbow-me/rainbowkit@2.2.11` declares `"wagmi": "^2.9.0"`, and there is no
+RainbowKit 3.x), and `wagmi` 3 pins `@wagmi/connectors@8.2.0`, which removed the `gemini` and `porto`
+exports that RainbowKit imports. Upgrading would silently drop two supported wallets.
+
+Two more, smaller: `typescript` stays on 5.9 because `ts-node@10.9.2` crashes under TypeScript 7, and
+`ky` stays on 1.x because `ky` 2 renamed `prefixUrl` to `prefix` and changed its leading-slash
+semantics.
+
+`pnpm audit --prod` currently reports 19 findings, none critical. CI fails only on a *new* critical —
+see the comment in `.github/workflows/security.yml`, which explains what is left and why.
+
 ## Pull requests
 
 1. Branch from `main`.

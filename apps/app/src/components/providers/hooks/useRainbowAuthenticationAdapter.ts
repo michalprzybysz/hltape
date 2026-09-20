@@ -3,9 +3,7 @@
 
 import { createAuthenticationAdapter } from "@rainbow-me/rainbowkit";
 import * as Sentry from "@sentry/nextjs";
-import { createSiweMessage, parseSiweMessage } from "viem/siwe";
-import { getAccount } from "wagmi/actions";
-import { config } from "@/components/providers/wagmi";
+import { createSiweMessage } from "viem/siwe";
 import { authClient } from "@/lib/auth";
 import { BRAND_NAME } from "@/lib/brand";
 
@@ -16,20 +14,14 @@ const siweStatement = () =>
 
 export default function useRainbowAuthenticationAdapter() {
   const adapter = createAuthenticationAdapter({
+    // Since better-auth 1.5 the nonce is not bound to a wallet address: the server stores it
+    // under the nonce itself and re-reads the address and chain id from the signed message at
+    // verify time. Both endpoints reject unknown body keys, so neither call sends any.
     getNonce: async () => {
-      const { address, chainId } = getAccount(config);
-      if (!address || !chainId) {
-        const err = new Error("getNonce called before wallet connected");
-        Sentry.captureException(err, { extra: { address, chainId } });
-        throw err;
-      }
-      const { data, error } = await authClient.siwe.nonce({
-        walletAddress: address,
-        chainId,
-      });
+      const { data, error } = await authClient.siwe.nonce();
       if (error || !data?.nonce) {
         const err = new Error("Failed to fetch nonce");
-        Sentry.captureException(err, { extra: { address, chainId, error } });
+        Sentry.captureException(err, { extra: { error } });
         throw err;
       }
       return data.nonce;
@@ -47,24 +39,12 @@ export default function useRainbowAuthenticationAdapter() {
       }),
 
     verify: async ({ message, signature }) => {
-      const parsed = parseSiweMessage(message);
-      const walletAddress = parsed.address;
-      const msgChainId = parsed.chainId;
-      if (!walletAddress || !msgChainId) {
-        Sentry.captureException(new Error("SIWE message missing address or chainId"), {
-          extra: { message },
-        });
-        return false;
-      }
-      const { data, error } = await authClient.siwe.verify({
-        message,
-        signature,
-        walletAddress,
-        chainId: msgChainId,
-      });
+      const { data, error } = await authClient.siwe.verify({ message, signature });
       if (error || !data?.user) {
+        // The message carries the address and chain id, so it stands in for the fields this
+        // call used to send separately.
         Sentry.captureException(new Error("SIWE verify failed"), {
-          extra: { reason: error?.message ?? "unknown", walletAddress },
+          extra: { reason: error?.message ?? "unknown", message },
         });
         return false;
       }
