@@ -1,21 +1,15 @@
 // apps/app/src/app/(restricted)/profile/@wallet/page.tsx
 "use client";
 
-import { Button } from "@furious-abacus/ui/components/button";
-import {
-  Card,
-  CardAction,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@furious-abacus/ui/components/card";
+import { Button } from "@hltape/ui/components/button";
+import { Card, CardAction, CardContent, CardHeader, CardTitle } from "@hltape/ui/components/card";
 import {
   Empty,
   EmptyDescription,
   EmptyHeader,
   EmptyMedia,
   EmptyTitle,
-} from "@furious-abacus/ui/components/empty";
+} from "@hltape/ui/components/empty";
 import {
   Item,
   ItemActions,
@@ -24,7 +18,7 @@ import {
   ItemGroup,
   ItemMedia,
   ItemTitle,
-} from "@furious-abacus/ui/components/item";
+} from "@hltape/ui/components/item";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { HiOutlineKey, HiTrash } from "react-icons/hi";

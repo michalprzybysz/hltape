@@ -1,7 +1,7 @@
 // apps/app/src/app/(restricted)/profile/@wallet/GenerateAgentButton.tsx
 "use client";
 
-import { Button } from "@furious-abacus/ui/components/button";
+import { Button } from "@hltape/ui/components/button";
 import {
   Dialog,
   DialogContent,
@@ -9,7 +9,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@furious-abacus/ui/components/dialog";
+} from "@hltape/ui/components/dialog";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { HiOutlineSparkles } from "react-icons/hi2";

@@ -1,7 +1,7 @@
 "use client";
 
-import { Alert, AlertDescription, AlertTitle } from "@furious-abacus/ui/components/alert";
-import { Button } from "@furious-abacus/ui/components/button";
+import { Alert, AlertDescription, AlertTitle } from "@hltape/ui/components/alert";
+import { Button } from "@hltape/ui/components/button";
 import {
   Dialog,
   DialogContent,
@@ -9,7 +9,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@furious-abacus/ui/components/dialog";
+} from "@hltape/ui/components/dialog";
 import { SparklesIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import type { ReactNode } from "react";

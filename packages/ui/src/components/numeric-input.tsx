@@ -1,7 +1,7 @@
 "use client";
 
-import { Input } from "@furious-abacus/ui/components/input";
-import { cn } from "@furious-abacus/ui/lib/utils";
+import { Input } from "@hltape/ui/components/input";
+import { cn } from "@hltape/ui/lib/utils";
 import type * as React from "react";
 import { NumericFormat, type NumericFormatProps } from "react-number-format";
 

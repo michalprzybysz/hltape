@@ -1,7 +1,15 @@
 name: Feature request
-description: Propose a change or an addition to Furious Abacus
+description: Propose a change or an addition to hltape
 labels: ["enhancement"]
 body:
+  - type: markdown
+    attributes:
+      value: |
+        **This project is unmaintained.** Nobody reviews issues here and nothing will be built —
+        see the notice at the top of the README. Writing this down is still useful as a public
+        record for other people running the code, but expect no reply. If you want it, fork the
+        project and build it there.
+
   - type: markdown
     attributes:
       value: |

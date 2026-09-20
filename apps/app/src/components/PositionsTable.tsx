@@ -1,15 +1,15 @@
 // apps/app/src/components/PositionsTable.tsx
 "use client";
 
-import type { Order, Position } from "@furious-abacus/sdk";
-import { Button } from "@furious-abacus/ui/components/button";
+import type { Order, Position } from "@hltape/sdk";
+import { Button } from "@hltape/ui/components/button";
 import {
   Empty,
   EmptyDescription,
   EmptyHeader,
   EmptyMedia,
   EmptyTitle,
-} from "@furious-abacus/ui/components/empty";
+} from "@hltape/ui/components/empty";
 import {
   Table,
   TableBody,
@@ -17,7 +17,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@furious-abacus/ui/components/table";
+} from "@hltape/ui/components/table";
 import { useTranslations } from "next-intl";
 import { HiOutlinePlus } from "react-icons/hi";
 import { PositionRow } from "./PositionRow";

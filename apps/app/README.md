@@ -1,8 +1,8 @@
-# @furious-abacus/app
+# @hltape/app
 
 Trading dashboard for Hyperliquid: open a position, attach a trailing stop, watch what the
-execution engine does with it. Talks to [`@furious-abacus/api`](../api/README.md) over HTTP through
-[`@furious-abacus/sdk`](../../packages/sdk/README.md).
+execution engine does with it. Talks to [`@hltape/api`](../api/README.md) over HTTP through
+[`@hltape/sdk`](../../packages/sdk/README.md).
 
 ## Architecture
 
@@ -24,10 +24,10 @@ consumes it yet.)
 ## Tech stack
 
 - **Framework**: Next.js 16 (App Router), React 19, React Compiler
-- **Styling**: Tailwind v4 and shadcn/ui via `@furious-abacus/ui`
+- **Styling**: Tailwind v4 and shadcn/ui via `@hltape/ui`
 - **Data and forms**: TanStack React Query, React Hook Form with Zod resolvers
 - **Wallet and auth**: wagmi + viem, RainbowKit, SIWE over Better Auth
-- **i18n**: next-intl, catalogue in `@furious-abacus/messages`
+- **i18n**: next-intl, catalogue in `@hltape/messages`
 - **Monitoring**: Sentry, optional and off unless `NEXT_PUBLIC_SENTRY_DSN` is set
 
 ## Design
@@ -44,7 +44,7 @@ From the repository root:
 cp apps/app/.env.example apps/app/.env.local
 # NEXT_PUBLIC_API_URL, NEXT_PUBLIC_BETTER_AUTH_URL and NEXT_PUBLIC_WALLETCONNECT_ID are required
 pnpm install
-pnpm --filter @furious-abacus/app dev
+pnpm --filter @hltape/app dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000). The API has to be running too — see the

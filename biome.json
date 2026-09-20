@@ -16,9 +16,7 @@
   },
   "overrides": [
     {
-      "includes": [
-        "**/*.svg"
-      ],
+      "includes": ["**/*.svg"],
       "linter": {
         "rules": {
           "a11y": {
@@ -28,9 +26,7 @@
       }
     },
     {
-      "includes": [
-        "**/packages/ui/src/components/**"
-      ],
+      "includes": ["**/packages/ui/src/components/**"],
       "linter": {
         "rules": {
           "a11y": {

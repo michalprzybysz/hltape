@@ -13,6 +13,9 @@ import { BUILDER_ADDRESS, BUILDER_FEE_TENTHS_BPS, REFERRAL_CODE } from "./revenu
 
 const MASTER_KEY_PATTERN = /^[a-fA-F0-9]{64}$/;
 const BUILDER_ADDRESS_PATTERN = /^0x[a-fA-F0-9]{40}$/;
+const DOMAIN_LABEL = "[a-z0-9](?:[a-z0-9-]*[a-z0-9])?";
+/** A bare domain of at least two labels: no scheme, no port, no path, no trailing dot. */
+const COOKIE_DOMAIN_PATTERN = new RegExp(`^${DOMAIN_LABEL}(?:\\.${DOMAIN_LABEL})+$`);
 
 const ENV_EXAMPLE_PATH = "apps/api/.env.example";
 
@@ -23,10 +26,26 @@ function emptyToUndefined(value: unknown): unknown {
   return trimmed === "" ? undefined : trimmed;
 }
 
+/** The same normalization lib/auth.ts applies before handing the value to Better Auth. */
+function normalizeCookieDomain(value: unknown): unknown {
+  if (typeof value !== "string") return value;
+  const trimmed = value.trim().toLowerCase().replace(/^\./, "");
+  return trimmed === "" ? undefined : trimmed;
+}
+
+/** The hostname of a URL-shaped variable, or null when it is not a URL at all. */
+function hostnameOf(value: string): string | null {
+  try {
+    return new URL(value).hostname.toLowerCase();
+  } catch {
+    return null;
+  }
+}
+
 const requiredString = z.preprocess(emptyToUndefined, z.string().min(1));
 const optionalString = z.preprocess(emptyToUndefined, z.string().min(1).optional());
 
-const envSchema = z.object({
+const envVariables = z.object({
   // --- required ---
   DATABASE_URL: requiredString,
   BETTER_AUTH_SECRET: requiredString,
@@ -46,12 +65,52 @@ const envSchema = z.object({
   NODE_ENV: z.preprocess(emptyToUndefined, z.string().min(1).default("development")),
   TESTNET: z.preprocess(emptyToUndefined, z.string().min(1).default("true")),
 
+  // --- cookies ---
+  // Empty (the default) keeps the auth cookies host-only. Set it only when the dashboard and
+  // this API sit on different subdomains of one domain you own — see .env.example.
+  AUTH_COOKIE_DOMAIN: z.preprocess(
+    normalizeCookieDomain,
+    z
+      .string()
+      .regex(
+        COOKIE_DOMAIN_PATTERN,
+        "must be a bare domain of at least two labels: no scheme, port or path (example.com)",
+      )
+      .optional(),
+  ),
+
   // --- observability ---
   LOGTAIL_SOURCE_TOKEN: optionalString,
   LOGTAIL_ENDPOINT: optionalString,
   SENTRY_DSN: optionalString,
   DEBUG_WORKERS: optionalString,
   DEBUG_METRICS: optionalString,
+});
+
+const envSchema = envVariables.superRefine((env, ctx) => {
+  // A browser only accepts a Set-Cookie whose Domain is the setting host or a parent of it, and
+  // only sends it to hosts under that domain. Get this wrong and nothing errors at runtime: the
+  // cookie is dropped, the session never persists and the dashboard bounces back to /login. So
+  // check it here, where it is still a boot failure with a name attached.
+  const domain = env.AUTH_COOKIE_DOMAIN;
+  // Unset, or already reported as malformed above: one problem per variable is enough.
+  if (typeof domain !== "string" || !COOKIE_DOMAIN_PATTERN.test(domain)) return;
+
+  for (const name of ["BETTER_AUTH_URL", "APP_ORIGIN"] as const) {
+    const host = hostnameOf(env[name]);
+    // Not a URL: that variable reports itself, and there is nothing to compare against.
+    if (host === null) continue;
+    if (host === domain || host.endsWith(`.${domain}`)) continue;
+
+    ctx.addIssue({
+      code: "custom",
+      path: ["AUTH_COOKIE_DOMAIN"],
+      message:
+        `is "${domain}", which does not cover ${name} (host "${host}"). ` +
+        "A cookie domain has to be the host itself or a parent of it. Leave it empty unless " +
+        "the dashboard and this API are on different subdomains of one domain.",
+    });
+  }
 });
 
 type Env = z.infer<typeof envSchema>;
@@ -173,6 +232,12 @@ export const config = Object.freeze({
   auth: Object.freeze({
     secret: env.BETTER_AUTH_SECRET,
     url: env.BETTER_AUTH_URL,
+    /**
+     * null keeps the auth cookies host-only, which is the default. lib/auth.ts applies this
+     * setting, reading AUTH_COOKIE_DOMAIN from `process.env` itself so that it stays usable
+     * without the rest of this configuration (`pnpm auth:generate` loads it on its own).
+     */
+    cookieDomain: env.AUTH_COOKIE_DOMAIN ?? null,
   }),
   builder,
   referralCode: REFERRAL_CODE.trim() === "" ? null : REFERRAL_CODE.trim(),

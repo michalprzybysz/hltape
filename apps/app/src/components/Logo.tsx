@@ -1,4 +1,4 @@
-import { cn } from "@furious-abacus/ui/lib/utils";
+import { cn } from "@hltape/ui/lib/utils";
 import Image from "next/image";
 import { BRAND_NAME } from "@/lib/brand";
 

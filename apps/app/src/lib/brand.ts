@@ -10,13 +10,25 @@
  * `process.env.NEXT_PUBLIC_FOO` expression, so the keys below are always written out in
  * full and never built dynamically.
  *
- * A fork sets these in apps/app/.env (see .env.example) to run under its own name and
- * CSP allowlist. The builder fee is NOT here: it is compiled in, in
+ * A fork sets these in apps/app/.env (see .env.example) to run under its own name, source
+ * URL and CSP allowlist. The builder fee is NOT here: it is compiled in, in
  * ./revenue.ts.
  */
 
 /** Display name of this deployment, used in page titles and user-facing copy. */
-export const BRAND_NAME: string = process.env.NEXT_PUBLIC_BRAND_NAME?.trim() || "Furious Abacus";
+export const BRAND_NAME: string = process.env.NEXT_PUBLIC_BRAND_NAME?.trim() || "hltape";
+
+/**
+ * Where the source code of THIS deployment lives. The footer links to it.
+ *
+ * AGPL-3.0 section 13 binds whoever runs this app for other people over a network, not
+ * whoever publishes it: an operator of a MODIFIED version owes its users the corresponding
+ * source of that modified version, and a link to the upstream repository does not satisfy
+ * that. So if you change the code and deploy it, publish your fork and point this at it.
+ * A deployment that runs the code unchanged can leave the default in place.
+ */
+export const SOURCE_URL: string =
+  process.env.NEXT_PUBLIC_SOURCE_URL?.trim() || "https://github.com/michalprzybysz/hltape";
 
 /**
  * Publishable LogoKit token used to fetch instrument icons from img.logokit.com.

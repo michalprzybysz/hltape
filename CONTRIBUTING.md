@@ -1,9 +1,17 @@
-# Contributing to Furious Abacus
+# Contributing to hltape
 
-Thanks for taking the time to contribute. This document is the short version of everything you
-need to get a working checkout, land a change, and not lose money doing it.
+> [!IMPORTANT]
+> **Nobody is maintaining this repository.** The author does not run an instance, does not review
+> pull requests and does not answer issues, so nothing opened here will be merged. This document
+> is kept because it is an accurate description of how the code fits together and how to work on
+> it safely — read it as instructions for your own fork, not as a contribution process with
+> someone at the other end of it. Everything it says about the tooling (Biome, commitlint,
+> lefthook, CI) is still true, and all of it runs in a fork.
 
-Furious Abacus is software that moves real funds on a live exchange. Read
+This document is the short version of everything you need to get a working checkout, land a change
+in your own tree, and not lose money doing it.
+
+hltape is software that moves real funds on a live exchange. Read
 [Trading safety](#trading-safety) before you run anything against mainnet, and
 [Read this before your first order](#read-this-before-your-first-order) before you place an order
 on *either* network — the shipped defaults pay the project author, on testnet too.
@@ -27,8 +35,8 @@ installs with `--frozen-lockfile`.
 > testnet order pays somebody else.
 
 ```bash
-git clone https://github.com/michalprzybysz/furious-abacus.git
-cd furious-abacus
+git clone https://github.com/michalprzybysz/hltape.git
+cd hltape
 pnpm install
 
 # Install the git hooks (Biome, secretlint, commitlint). Not automatic.
@@ -90,9 +98,10 @@ That is the whole opt-out, and it is a fully supported configuration rather than
 the server omits the `builder` key from every order payload, the dashboard skips the on-chain fee
 approval step during onboarding, and the referral lookup never runs.
 
-Do **not** commit that edit back. The constants pointing at the author are the project's shipped
-default and a pull request that empties them will be rejected as an unrelated change — keep it as a
-local modification, or set the two addresses to your own instead.
+Keep that edit as a local modification while you are developing, or set both addresses to your own
+if you intend to run this yourself. The constants pointing at the author are the shipped default of
+this repository and are documented as such; a fork is free to change them, and a fork that runs for
+other people should say what it changed them to.
 
 The full explanation of both mechanisms, what they cost a user and what you owe the users of an
 instance you operate, is in [Builder fee and referral code](README.md#builder-fee-and-referral-code)
@@ -152,7 +161,7 @@ pnpm build           # production build of every workspace that has a build scri
 ```
 
 `apps/api` has no `build` script — only `build:ts` — so `pnpm build` skips it. The API is covered
-by `pnpm check-types` and by `pnpm --filter @furious-abacus/api test`, which compiles it.
+by `pnpm check-types` and by `pnpm --filter @hltape/api test`, which compiles it.
 
 The lefthook pre-commit hook runs `biome check --write` on staged files and re-stages the result,
 so committed code is formatted whether or not you remember. It also runs secretlint on staged
@@ -186,7 +195,7 @@ Also enforced:
 The API has a test suite (`node --test` with c8 coverage):
 
 ```bash
-pnpm --filter @furious-abacus/api test
+pnpm --filter @hltape/api test
 ```
 
 It compiles the API and the tests first, so it is also a type check. It needs no environment
@@ -195,10 +204,11 @@ instead of booting the whole app. Keep it that way — a test that needs a live 
 nobody runs. If you do point something at a database, point it at a throwaway one, never at one
 holding real data.
 
-Coverage is thin today — `apps/api/test/routes/root.test.ts` is the whole suite. Widening it is
-welcome. Route tests belong in `apps/api/test/routes/`; there is no `test/plugins/` directory yet,
-so create one when you write the first plugin test. If you change execution or trailing logic, add
-a test — that code path spends money when it is wrong.
+Coverage is thin — `apps/api/test/routes/root.test.ts` is the whole suite, and it will stay that
+way here, so widening it is work for your fork. Route tests belong in `apps/api/test/routes/`;
+there is no `test/plugins/` directory yet, so create one when you write the first plugin test. If
+you change execution or trailing logic, add a test — that code path spends money when it is
+wrong, and there is no reviewer left to catch what you miss.
 
 ## Trading safety
 
@@ -208,8 +218,10 @@ This is the part that matters. Read it.
   `NEXT_PUBLIC_TESTNET=true` in `apps/app/.env.local`. Both must be `true`; the API and the
   dashboard pick their endpoints independently, and a mismatch means the UI shows you one network
   while orders go to the other.
-- **A pull request touching the executor, dispatcher or brain must state in its description that
-  it was exercised on testnet**, and how.
+- **Exercise any change to the executor, dispatcher or brain on testnet before it goes anywhere
+  near real money**, and write down how you did it — in the commit message, or in the pull request
+  if your fork reviews them. The PR template still asks the question; it is worth answering even
+  when the only reader is you in six months.
 - **Testnet does not switch revenue collection off.** `TESTNET=true` changes which Hyperliquid
   endpoints are used and nothing else: the builder tag and the referral link go out with your
   testnet orders exactly as they would on mainnet. See
@@ -250,30 +262,37 @@ semantics.
 `pnpm audit --prod` currently reports 19 findings, none critical. CI fails only on a *new* critical —
 see the comment in `.github/workflows/security.yml`, which explains what is left and why.
 
-## Pull requests
+## Landing a change
+
+There is no upstream review queue — see the note at the top of this file. What follows is the
+checklist this project used, kept because a fork still benefits from it:
 
 1. Branch from `main`.
-2. Keep the change focused; unrelated reformatting makes review harder.
+2. Keep the change focused; unrelated reformatting makes a diff harder to read later.
 3. Run `pnpm lint`, `pnpm check-types` and `pnpm build` — these are the three gates CI runs.
-   For API changes, also run `pnpm --filter @furious-abacus/api test`.
-4. Give the PR a Conventional Commit title — it ends up in the history.
-5. Fill in the PR template, including the testnet question.
+   For API changes, also run `pnpm --filter @hltape/api test`.
+4. Give the commit a Conventional Commit subject — commitlint enforces it, and it ends up in the
+   history you will be reading when something breaks.
+5. If your fork opens pull requests, fill in the PR template, including the testnet question.
 
 CI runs lint, type check and build on every pull request
 ([`.github/workflows/ci.yml`](.github/workflows/ci.yml)), plus a dependency audit and a secretlint
-scan of the whole tree ([`.github/workflows/security.yml`](.github/workflows/security.yml)). All of
-it must be green.
+scan of the whole tree ([`.github/workflows/security.yml`](.github/workflows/security.yml)). Both
+workflows run in a fork, on your own Actions minutes, and red CI is your signal to act on — nobody
+else is looking at it.
 
 The audit deserves one sentence of honesty: it prints the full `pnpm audit --prod` report but only
 **fails** on a critical advisory, because the tree is not clean today and a gate nobody can pass is
 a gate nobody reads. The reasoning, the current counts and the one ignored GHSA are all written out
-in comments in that workflow. Do not widen the ignore list to make your PR pass.
+in comments in that workflow. Widening the ignore list to make the job green is the one change to
+it that costs you something real: nobody upstream is tracking these advisories on your behalf, so
+that job is the only thing telling you the tree got worse.
 
 ## Licence
 
-Furious Abacus is licensed under the **GNU Affero General Public License v3.0 only**
-(see [LICENSE](LICENSE)). By submitting a contribution you agree that it is licensed under the
-same terms. There is no CLA.
+hltape is licensed under the **GNU Affero General Public License v3.0 only**
+(see [LICENSE](LICENSE)). There is no CLA: anything anyone does contribute is licensed under the
+same terms, and the copyright stays with whoever wrote it.
 
 Note what AGPL-3.0 means for an operator: if you run a modified version of this software as a
 network service, you must offer the users of that service the corresponding source of your

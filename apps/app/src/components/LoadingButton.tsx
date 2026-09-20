@@ -1,5 +1,5 @@
-import { Button } from "@furious-abacus/ui/components/button";
-import { Spinner } from "@furious-abacus/ui/components/spinner";
+import { Button } from "@hltape/ui/components/button";
+import { Spinner } from "@hltape/ui/components/spinner";
 
 const LoadingButton = ({
   loadingText = "Loading...",

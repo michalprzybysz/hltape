@@ -1,9 +1,9 @@
 "use client";
 
-import { Label } from "@furious-abacus/ui/components/label";
-import { Separator } from "@furious-abacus/ui/components/separator";
+import { Label } from "@hltape/ui/components/label";
+import { Separator } from "@hltape/ui/components/separator";
 
-import { cn } from "@furious-abacus/ui/lib/utils";
+import { cn } from "@hltape/ui/lib/utils";
 import { cva, type VariantProps } from "class-variance-authority";
 import { useMemo } from "react";
 

@@ -60,10 +60,14 @@ representative at an online or offline event.
 
 Instances of abusive, harassing, or otherwise unacceptable behavior may be
 reported to the community leaders responsible for enforcement at
-**conduct@<your-domain>**.
+**m.przybysz@blackmoose.pl**.
 
-<!-- OPERATOR: replace the address above with a real monitored contact before
-     publishing this repository. Reports should reach a person, not a void. -->
+> [!NOTE]
+> A note specific to this repository, not part of the Contributor Covenant: this
+> project is unmaintained and has no active moderators. The address above is the
+> author's ordinary inbox, and a report sent to it may not be acted on. If you
+> fork this project and build a community around it, put your own contact here
+> and mean it.
 
 All complaints will be reviewed and investigated promptly and fairly.
 

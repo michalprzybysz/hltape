@@ -1,9 +1,9 @@
 // apps/api/src/routes/orders/index.ts
-import { createSelectSchema, createUpdateSchema } from "drizzle-zod";
+import { createSelectSchema } from "drizzle-zod";
 import type { FastifyPluginAsync } from "fastify";
 import * as z from "zod";
 import { createOrder, getAllOrders, getOrder, getOrderLogs, updateOrder } from "./handlers";
-import { CreateOrderJSONSchema } from "./schemas";
+import { CreateOrderJSONSchema, UpdateOrderJSONSchema } from "./schemas";
 
 const orders: FastifyPluginAsync = async (fastify): Promise<void> => {
   const OrderSelectSchema = z.toJSONSchema(createSelectSchema(fastify.schema.order)) as Record<
@@ -14,8 +14,6 @@ const orders: FastifyPluginAsync = async (fastify): Promise<void> => {
   if (OrderSelectSchema.properties && typeof OrderSelectSchema.properties === "object") {
     delete (OrderSelectSchema.properties as Record<string, unknown>).raw;
   }
-
-  const OrderUpdateSchema = z.toJSONSchema(createUpdateSchema(fastify.schema.order));
 
   fastify.addHook("preHandler", fastify.verifySession);
 
@@ -67,9 +65,7 @@ const orders: FastifyPluginAsync = async (fastify): Promise<void> => {
         rateLimit: { max: 30, timeWindow: "1 minute" },
       },
       schema: {
-        request: {
-          body: OrderUpdateSchema,
-        },
+        body: UpdateOrderJSONSchema,
         response: {
           200: OrderSelectSchema,
         },

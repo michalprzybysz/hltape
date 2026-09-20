@@ -1,10 +1,10 @@
 // apps/app/src/app/(restricted)/orders/[id]/page.tsx
 "use client";
 
-import { Badge } from "@furious-abacus/ui/components/badge";
-import { Card, CardContent } from "@furious-abacus/ui/components/card";
-import { Spinner } from "@furious-abacus/ui/components/spinner";
-import { cn } from "@furious-abacus/ui/lib/utils";
+import { Badge } from "@hltape/ui/components/badge";
+import { Card, CardContent } from "@hltape/ui/components/card";
+import { Spinner } from "@hltape/ui/components/spinner";
+import { cn } from "@hltape/ui/lib/utils";
 import { useTranslations } from "next-intl";
 import { use } from "react";
 import { HiArrowNarrowRight, HiCheck, HiX } from "react-icons/hi";

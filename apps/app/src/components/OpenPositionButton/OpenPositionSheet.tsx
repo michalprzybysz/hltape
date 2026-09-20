@@ -1,21 +1,21 @@
 "use client";
 
-import { SIDES } from "@furious-abacus/sdk";
-import { Button } from "@furious-abacus/ui/components/button";
+import { SIDES } from "@hltape/sdk";
+import { Button } from "@hltape/ui/components/button";
 import {
   Dialog,
   DialogContent,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@furious-abacus/ui/components/dialog";
+} from "@hltape/ui/components/dialog";
 import {
   Drawer,
   DrawerContent,
   DrawerFooter,
   DrawerHeader,
   DrawerTitle,
-} from "@furious-abacus/ui/components/drawer";
+} from "@hltape/ui/components/drawer";
 import {
   Field,
   FieldContent,
@@ -24,10 +24,10 @@ import {
   FieldLabel,
   FieldSeparator,
   FieldTitle,
-} from "@furious-abacus/ui/components/field";
-import { RadioGroup, RadioGroupItem } from "@furious-abacus/ui/components/radio-group";
-import { Spinner } from "@furious-abacus/ui/components/spinner";
-import { useMediaQuery } from "@furious-abacus/ui/hooks/use-media-query";
+} from "@hltape/ui/components/field";
+import { RadioGroup, RadioGroupItem } from "@hltape/ui/components/radio-group";
+import { Spinner } from "@hltape/ui/components/spinner";
+import { useMediaQuery } from "@hltape/ui/hooks/use-media-query";
 import { useTranslations } from "next-intl";
 import type { FormEvent } from "react";
 import { type Control, Controller, type UseFormTrigger } from "react-hook-form";

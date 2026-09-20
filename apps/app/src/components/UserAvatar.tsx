@@ -2,7 +2,7 @@
 "use client";
 
 import { Avatar } from "@base-ui/react/avatar";
-import { cn } from "@furious-abacus/ui/lib/utils";
+import { cn } from "@hltape/ui/lib/utils";
 import makeBlockie from "ethereum-blockies-base64";
 import { useTranslations } from "next-intl";
 import type { Address } from "viem";

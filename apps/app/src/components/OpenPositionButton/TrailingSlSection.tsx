@@ -1,12 +1,12 @@
 "use client";
 
-import { Field, FieldError, FieldLabel } from "@furious-abacus/ui/components/field";
+import { Field, FieldError, FieldLabel } from "@hltape/ui/components/field";
 import {
   InputGroup,
   InputGroupAddon,
   InputGroupInput,
   InputGroupText,
-} from "@furious-abacus/ui/components/input-group";
+} from "@hltape/ui/components/input-group";
 import { useTranslations } from "next-intl";
 import { type Control, Controller } from "react-hook-form";
 import { FiPercent } from "react-icons/fi";

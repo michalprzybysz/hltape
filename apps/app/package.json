@@ -1,8 +1,8 @@
 {
-  "name": "@furious-abacus/app",
+  "name": "@hltape/app",
   "version": "1.0.0",
   "private": true,
-  "description": "Furious Abacus — Trading dashboard for trailing SL/TP on Hyperliquid",
+  "description": "hltape — Trading dashboard for trailing SL/TP on Hyperliquid",
   "author": "Michał Kamil Przybysz <m.przybysz@blackmoose.pl>",
   "license": "AGPL-3.0-only",
   "scripts": {
@@ -14,10 +14,10 @@
   },
   "dependencies": {
     "@base-ui/react": "^1.8.0",
-    "@furious-abacus/coin-names": "workspace:^",
-    "@furious-abacus/messages": "workspace:*",
-    "@furious-abacus/sdk": "workspace:*",
-    "@furious-abacus/ui": "workspace:*",
+    "@hltape/coin-names": "workspace:^",
+    "@hltape/messages": "workspace:*",
+    "@hltape/sdk": "workspace:*",
+    "@hltape/ui": "workspace:*",
     "@hookform/resolvers": "^5.9.1",
     "@rainbow-me/rainbowkit": "^2.2.11",
     "@sentry/nextjs": "^10.75.0",

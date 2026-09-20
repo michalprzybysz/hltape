@@ -1,7 +1,15 @@
 name: Bug report
-description: Something in Furious Abacus behaves incorrectly
+description: Something in hltape behaves incorrectly
 labels: ["bug"]
 body:
+  - type: markdown
+    attributes:
+      value: |
+        **This project is unmaintained.** Nobody reviews issues here and nothing will be fixed —
+        see the notice at the top of the README. Filing this is still useful as a public record
+        for other people running the code, but expect no reply. If you need it fixed, fork and
+        fix it.
+
   - type: markdown
     attributes:
       value: |

@@ -1,8 +1,8 @@
 // apps/app/src/components/Navbar.tsx
 "use client";
 import { Menu } from "@base-ui/react/menu";
-import { Badge } from "@furious-abacus/ui/components/badge";
-import { cn } from "@furious-abacus/ui/lib/utils";
+import { Badge } from "@hltape/ui/components/badge";
+import { cn } from "@hltape/ui/lib/utils";
 import { Menu as MenuIcon, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";

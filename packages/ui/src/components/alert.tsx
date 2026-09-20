@@ -1,4 +1,4 @@
-import { cn } from "@furious-abacus/ui/lib/utils";
+import { cn } from "@hltape/ui/lib/utils";
 import { cva, type VariantProps } from "class-variance-authority";
 import type * as React from "react";
 

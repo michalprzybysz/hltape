@@ -1,7 +1,7 @@
 // apps/app/src/lib/useOrdersQuery.ts
 "use client";
 
-import type { CreateOrderInput, Order } from "@furious-abacus/sdk";
+import type { CreateOrderInput, Order } from "@hltape/sdk";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/api";
 

@@ -1,8 +1,8 @@
 // apps/app/src/app/login/page.tsx
 "use client";
-import { Button } from "@furious-abacus/ui/components/button";
-import { Field, FieldDescription, FieldGroup } from "@furious-abacus/ui/components/field";
-import { Spinner } from "@furious-abacus/ui/components/spinner";
+import { Button } from "@hltape/ui/components/button";
+import { Field, FieldDescription, FieldGroup } from "@hltape/ui/components/field";
+import { Spinner } from "@hltape/ui/components/spinner";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 import { ShieldCheck } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -11,6 +11,7 @@ import { useEffect, useRef } from "react";
 import { useAccount } from "wagmi";
 import { Logo } from "@/components/Logo";
 import { useAuthStatus } from "@/components/providers/rainbowkit";
+import { BRAND_NAME, SOURCE_URL } from "@/lib/brand";
 
 export default function LoginPage() {
   const status = useAuthStatus();
@@ -21,6 +22,7 @@ export default function LoginPage() {
   const tState = useTranslations("state");
   const tAction = useTranslations("action");
   const tLogin = useTranslations("login");
+  const tFooter = useTranslations("footer");
 
   const callbackUrl = searchParams.get("callbackUrl") ?? "/";
 
@@ -80,6 +82,23 @@ export default function LoginPage() {
           </FieldGroup>
         </div>
       </div>
+      <footer className="py-4 px-6 text-center text-xs text-gray-400 dark:text-gray-500">
+        <p>
+          {tFooter.rich("source", {
+            brand: BRAND_NAME,
+            link: (chunks) => (
+              <a
+                href={SOURCE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline underline-offset-2"
+              >
+                {chunks}
+              </a>
+            ),
+          })}
+        </p>
+      </footer>
       <div className="fixed bottom-6 right-6 flex items-center gap-1.5 text-[10px] text-muted-foreground/40 md:bottom-10 md:right-10">
         <span>{accountStatus}</span>
         <span>/</span>

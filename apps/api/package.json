@@ -1,8 +1,8 @@
 {
-  "name": "@furious-abacus/api",
+  "name": "@hltape/api",
   "version": "1.0.0",
   "private": true,
-  "description": "Furious Abacus API — Fastify backend with worker threads",
+  "description": "hltape API — Fastify backend with worker threads",
   "author": "Michał Kamil Przybysz <m.przybysz@blackmoose.pl>",
   "license": "AGPL-3.0-only",
   "main": "app.ts",

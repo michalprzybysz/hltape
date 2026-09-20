@@ -1,7 +1,7 @@
 // apps/app/src/components/PositionSide.tsx
 "use client";
 
-import { cn } from "@furious-abacus/ui/lib/utils";
+import { cn } from "@hltape/ui/lib/utils";
 import { useTranslations } from "next-intl";
 import { HiTrendingDown, HiTrendingUp } from "react-icons/hi";
 

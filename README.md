@@ -1,10 +1,10 @@
-# Furious Abacus
+# hltape
 
 Self-hostable trailing stop-loss automation for [Hyperliquid](https://hyperliquid.xyz) perpetuals.
 
 [![Licence: AGPL v3](https://img.shields.io/badge/licence-AGPL--3.0--only-blue.svg)](LICENSE)
 [![Node](https://img.shields.io/badge/node-%3E%3D22-brightgreen.svg)](https://nodejs.org/)
-[![CI](https://github.com/michalprzybysz/furious-abacus/actions/workflows/ci.yml/badge.svg)](https://github.com/michalprzybysz/furious-abacus/actions/workflows/ci.yml)
+[![CI](https://github.com/michalprzybysz/hltape/actions/workflows/ci.yml/badge.svg)](https://github.com/michalprzybysz/hltape/actions/workflows/ci.yml)
 
 > [!WARNING]
 > This software places real orders with real money on a live exchange. A bug, a misconfiguration
@@ -15,10 +15,16 @@ Self-hostable trailing stop-loss automation for [Hyperliquid](https://hyperliqui
 > end. If you operate an instance for other people, their money is at stake too, and your legal,
 > regulatory and tax position is entirely your own problem.
 
+> [!IMPORTANT]
+> **This project is unmaintained.** The author no longer runs an instance of it and is not
+> reviewing pull requests, answering issues or shipping fixes — security fixes included, see
+> [SECURITY.md](SECURITY.md). It is published as-is so the code is there to read, run and fork,
+> not as a product with somebody behind it: if you run it, you own the outcome and the patching.
+
 ## What it does
 
 You have a position open on Hyperliquid and you want a stop that follows the price up but never
-back down. Furious Abacus does that: you attach a trailing distance to a position, and a background
+back down. hltape does that: you attach a trailing distance to a position, and a background
 engine watches the mid price and rewrites the stop order whenever the price moves in your favour by
 enough to matter. The order it places is a reduce-only trigger market order, submitted under a
 client order id derived from the database row, so a modify is an atomic cancel-and-replace rather
@@ -27,8 +33,10 @@ than a hope.
 It is **non-custodial**. It never sees your wallet's private key. You authorise a Hyperliquid
 **agent wallet** (also called an API wallet) — a key that can sign trades on your account but
 **cannot withdraw or transfer funds**. Only that agent key is stored by the server, encrypted at
-rest. The worst case if the server is compromised is unwanted trading on your account, not drained
-funds. You can revoke the agent on Hyperliquid at any time.
+rest. A compromised server therefore cannot withdraw or transfer your money — but it can still
+trade your account, and trading can lose you the balance: whoever holds the agent keys can open
+leveraged positions until they liquidate, or trade you against a counterparty they control. You can
+revoke the agent on Hyperliquid at any time.
 
 The dashboard also lets you open a position directly — market entry (an IOC order with 2% slippage
 room), with leverage and cross/isolated margin mode — and attach the trailing stop in the same
@@ -188,8 +196,8 @@ wallet connector. It is free.
 
 ```bash
 # 1. Clone
-git clone https://github.com/michalprzybysz/furious-abacus.git
-cd furious-abacus
+git clone https://github.com/michalprzybysz/hltape.git
+cd hltape
 
 # 2. Install
 pnpm install
@@ -206,8 +214,8 @@ openssl rand -base64 32   # -> BETTER_AUTH_SECRET
 openssl rand -hex 32      # -> MASTER_KEY_HEX  (exactly 64 hex characters)
 
 # 6. Create an empty database and point DATABASE_URL at it, e.g.
-createdb furious_abacus
-# DATABASE_URL=postgresql://localhost:5432/furious_abacus
+createdb hltape
+# DATABASE_URL=postgresql://localhost:5432/hltape
 
 # 7. Apply the schema
 pnpm db:migrate
@@ -240,6 +248,7 @@ by name, rather than failing on the first one. That check lives in `apps/api/src
 | `BETTER_AUTH_URL` | yes | — | Public base URL of this server's auth endpoints, e.g. `http://localhost:4000/auth`. |
 | `APP_ORIGIN` | yes | — | Origin of the dashboard allowed to call this API. Used for CORS and SIWE verification. |
 | `MASTER_KEY_HEX` | yes | — | 64 hex characters (32 bytes). Encrypts agent-wallet private keys at rest. **Back it up** — lose it and every stored agent wallet is unreadable. |
+| `AUTH_COOKIE_DOMAIN` | no | unset | Leave empty when the dashboard and the API share a host. Set it to the shared registrable domain (`example.com`) only when they sit on different subdomains of one domain you own — see the cookie section in `apps/api/.env.example`. Never a public suffix such as `vercel.app` or `co.uk`. |
 | `PORT` | no | `4000` | TCP port the API listens on. |
 | `NODE_ENV` | no | `development` | Sentry and the BetterStack log transport only activate on `production`. |
 | `TESTNET` | no | `true` | `"true"` uses Hyperliquid testnet; anything else is mainnet. |
@@ -260,7 +269,8 @@ public. Never put a secret there, and remember that changing one requires a rebu
 | `NEXT_PUBLIC_BETTER_AUTH_URL` | yes | — | Must match `BETTER_AUTH_URL` on the API. |
 | `NEXT_PUBLIC_WALLETCONNECT_ID` | yes | — | WalletConnect project id. |
 | `NEXT_PUBLIC_TESTNET` | no | `true` | `"false"` for mainnet. Keep in sync with `TESTNET`. |
-| `NEXT_PUBLIC_BRAND_NAME` | no | `Furious Abacus` | Name in page titles, the wallet modal and the SIWE message. |
+| `NEXT_PUBLIC_BRAND_NAME` | no | `hltape` | Name in page titles, the wallet modal and the SIWE message. |
+| `NEXT_PUBLIC_SOURCE_URL` | no | `https://github.com/michalprzybysz/hltape` | Repository the footer links to. If you modify the code and run it for other people, AGPL-3.0 section 13 requires this to point at *your* published source, not upstream. |
 | `NEXT_PUBLIC_LOGOKIT_TOKEN` | no | unset | Publishable [LogoKit](https://logokit.com) token for instrument icons. Unset renders a letter placeholder instead of calling the service. |
 | `NEXT_PUBLIC_CSP_EXTRA_ORIGINS` | no | `""` | Space-separated origins appended to the `script-src` and `connect-src` CSP directives. |
 | `NEXT_PUBLIC_SENTRY_DSN` | no | unset | Browser error reporting. |
@@ -277,6 +287,7 @@ this as your own thing, set in `apps/app/.env.local`:
 | Variable | Effect |
 | --- | --- |
 | `NEXT_PUBLIC_BRAND_NAME` | Page titles, the header wordmark, the WalletConnect modal, the SIWE sign-in message. |
+| `NEXT_PUBLIC_SOURCE_URL` | The repository the footer links to. Point it at your own published fork: once you modify the code, that — not this repository — is the source AGPL-3.0 section 13 owes your users. |
 | `NEXT_PUBLIC_LOGOKIT_TOKEN` | Your own LogoKit token for instrument icons. Unset renders a letter placeholder. |
 | `NEXT_PUBLIC_CSP_EXTRA_ORIGINS` | Extra origins for your own CDN or telemetry subdomains. |
 
@@ -307,25 +318,27 @@ documents yourself, for your own jurisdiction, and add the routes you need.
 
 | Command | What it does |
 | --- | --- |
-| `pnpm --filter @furious-abacus/api dev` | API only: `tsc -w` plus `fastify start -w`. |
-| `pnpm --filter @furious-abacus/api start` | Compile and run the API for production. |
-| `pnpm --filter @furious-abacus/api test` | `node --test` with c8 coverage. |
-| `pnpm --filter @furious-abacus/api db:migrate:prod` | Run migrations from the compiled output. |
-| `pnpm --filter @furious-abacus/api auth:generate` | Regenerate the Better Auth Drizzle schema. |
-| `pnpm --filter @furious-abacus/app dev` | Dashboard only. |
-| `pnpm --filter @furious-abacus/app build` | Production build of the dashboard. |
+| `pnpm --filter @hltape/api dev` | API only: `tsc -w` plus `fastify start -w`. |
+| `pnpm --filter @hltape/api start` | Compile and run the API for production. |
+| `pnpm --filter @hltape/api test` | `node --test` with c8 coverage. |
+| `pnpm --filter @hltape/api db:migrate:prod` | Run migrations from the compiled output. |
+| `pnpm --filter @hltape/api auth:generate` | Regenerate the Better Auth Drizzle schema. |
+| `pnpm --filter @hltape/app dev` | Dashboard only. |
+| `pnpm --filter @hltape/app build` | Production build of the dashboard. |
 
 The API test suite needs no environment variables and no database — tests register the units they
-exercise on their own Fastify instance rather than booting the whole app. Coverage is thin today;
-widening it is welcome.
+exercise on their own Fastify instance rather than booting the whole app. Coverage is thin: one
+route test is the whole of it. If you are going to run this with money, widening it is work for
+your own fork, and the execution path is where it pays.
 
 Formatting and linting are Biome (2-space indent, LF, double quotes, 100 columns), configured in
 `biome.json`. The lefthook `pre-commit` hook formats staged files and runs secretlint on them; the
 `commit-msg` hook runs commitlint, which **rejects** anything that is not a
 [Conventional Commit](https://www.conventionalcommits.org/).
 
-Read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request — it has the allowed commit
-types, the where-to-change-what table and a trading-safety section that is not optional reading.
+Read [CONTRIBUTING.md](CONTRIBUTING.md) before you start changing things — it has the allowed
+commit types, the where-to-change-what table and a trading-safety section that is not optional
+reading.
 
 ## Deployment
 
@@ -340,12 +353,18 @@ What is actually in this repository:
   byte-identical copy of it — build either, from the root.)
 - **[`apps/app/vercel.json`](apps/app/vercel.json)** — four settings telling Vercel this is a
   Next.js project, to install with pnpm and to build with
-  `pnpm turbo build --filter=@furious-abacus/app`. Nothing in it is deployment-specific, so it
+  `pnpm turbo build --filter=@hltape/app`. Nothing in it is deployment-specific, so it
   works for any account.
 
 That is the whole list. There is no platform configuration in the repository — no fly.toml, no
 Compose file, no Kubernetes manifest, no Terraform. Where and how you run the image is yours to
 decide; anything that takes a Dockerfile and a set of environment variables will do.
+
+One constraint on *where*: the dashboard and the API must share a hostname, or be two subdomains of
+one domain you own with `AUTH_COOKIE_DOMAIN` set to that domain. Two unrelated domains — the
+dashboard on `*.vercel.app` and the API on `*.fly.dev`, say — are not supported: the session cookie
+cannot span them, so sign-in appears to succeed and drops you back on `/login` with nothing in any
+log. `apps/api/.env.example` works through the three cases.
 
 Migrations are not run by the image's entrypoint. Apply them yourself against the compiled output
 before the new revision serves traffic — `pnpm run db:migrate:prod` from the image, which resolves
@@ -353,7 +372,7 @@ because the final `WORKDIR` is `/app/apps/api`. Most platforms have a hook for e
 release command, a pre-deploy job, an init container); wire it there rather than into `CMD`, so a
 restart does not re-run migrations.
 
-The dashboard is a stock Next.js 16 application: `pnpm --filter @furious-abacus/app build` then
+The dashboard is a stock Next.js 16 application: `pnpm --filter @hltape/app build` then
 `next start`, on Vercel or anywhere else that runs Next.js. The only thing to remember is that
 `NEXT_PUBLIC_*` variables are baked in at build time, so a branding or builder-address change means
 a rebuild, not a restart.
@@ -376,6 +395,14 @@ stored agent wallet permanently unreadable.
 
 Authentication is **SIWE** (Sign-In with Ethereum) over Better Auth: users prove control of a wallet
 by signing a nonce-bearing message, and the server keeps a session. No passwords exist.
+
+**There is an admin surface**, even though no screen in the dashboard exposes it. Better Auth's
+`admin` plugin is registered, so `/auth/admin/*` is live on every deployment: an account whose
+`role` column says `admin` can list, ban, delete and impersonate users, and an impersonated session
+can trade with that user's agent wallet. No account starts as admin and nothing in the application
+promotes one — the first has to be created with SQL, which also makes write access to the `user`
+table equivalent to admin access. Detail in
+[SECURITY.md](SECURITY.md#administrative-access-roles-bans-and-impersonation).
 
 **Rate limiting and your reverse proxy.** The API is limited to 100 requests per minute per client,
 with tighter per-route limits on the four endpoints that spend money or create credentials:
@@ -417,7 +444,8 @@ In practice, the clause that matters here is section 13. If you modify this soft
 a network service — a hosted instance other people can use — you must offer those users the
 corresponding source of **your modified version**. Running a private fork you never expose to
 anyone else does not trigger that; running a public instance does. Plan for it before you deploy,
-not after someone asks.
+not after someone asks: publish your fork and point `NEXT_PUBLIC_SOURCE_URL` at it, so the
+dashboard footer links to the source of what you are actually running.
 
 Copyright holder: Michał Kamil Przybysz (the `author` field in `package.json`), and each
 contributor for their own contributions. There is no CLA; contributions are licensed under the same
@@ -425,10 +453,16 @@ terms.
 
 ## Contributing
 
-Bug reports, fixes and tests are welcome. Start with [CONTRIBUTING.md](CONTRIBUTING.md) — it covers
-the first run, where each kind of change belongs, the commit-message rules and the testnet
-requirement for changes to the executor, dispatcher or brain.
+Nobody is watching this repository's issues or pull requests, and nothing will be reviewed or
+merged. The licence gives you the better route: fork it and make the change in your own tree.
 
-Participation is governed by the [Code of Conduct](CODE_OF_CONDUCT.md).
+[CONTRIBUTING.md](CONTRIBUTING.md) is still worth reading first — it covers the first run, where
+each kind of change belongs, the commit-message rules the tooling enforces, and the testnet
+requirement for changes to the executor, dispatcher or brain. Read it as instructions for working
+on your own copy.
 
-Security issues go through [SECURITY.md](SECURITY.md), never through a public issue.
+The [Code of Conduct](CODE_OF_CONDUCT.md) describes how people are expected to behave in this
+project's spaces; note that there is no active moderator behind it.
+
+Security issues go through [SECURITY.md](SECURITY.md), never through a public issue — read that
+file first, because what happens to a report has changed.

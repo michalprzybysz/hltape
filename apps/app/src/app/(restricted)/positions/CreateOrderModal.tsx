@@ -2,16 +2,12 @@
 "use client";
 
 import { Dialog } from "@base-ui/react/dialog";
-import type { Position } from "@furious-abacus/sdk";
-import { Button } from "@furious-abacus/ui/components/button";
-import { Field, FieldError, FieldLabel } from "@furious-abacus/ui/components/field";
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupText,
-} from "@furious-abacus/ui/components/input-group";
-import { NumericInputGroupInput } from "@furious-abacus/ui/components/numeric-input";
-import { Spinner } from "@furious-abacus/ui/components/spinner";
+import type { Position } from "@hltape/sdk";
+import { Button } from "@hltape/ui/components/button";
+import { Field, FieldError, FieldLabel } from "@hltape/ui/components/field";
+import { InputGroup, InputGroupAddon, InputGroupText } from "@hltape/ui/components/input-group";
+import { NumericInputGroupInput } from "@hltape/ui/components/numeric-input";
+import { Spinner } from "@hltape/ui/components/spinner";
 import { XIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Controller, useForm } from "react-hook-form";

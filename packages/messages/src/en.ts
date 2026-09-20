@@ -38,6 +38,9 @@ const en = {
     testnet: "Testnet",
     toggleNav: "Toggle navigation menu",
   },
+  footer: {
+    source: "{brand} is open source under AGPL-3.0 — <link>source code</link>",
+  },
   metadata: {
     appTitle: "{brand} — Automated Trailing Stops for Hyperliquid",
     appDescription:
@@ -106,7 +109,8 @@ const en = {
     noOrdersFound: "No orders found",
     emptyOpenDescription:
       "Protect your positions with trailing stop-loss orders that automatically follow the price.",
-    emptyClosedDescription: "Once a trailing stop triggers or gets cancelled, it will appear here.",
+    emptyClosedDescription:
+      "Once a trailing stop triggers, or its position is closed elsewhere, the order moves here.",
     emptyAllDescription: "Try changing the filter to see your orders.",
     goToPositions: "Go to Positions",
     safe: "safe",
@@ -114,8 +118,6 @@ const en = {
     currentPrice: "Current Price",
     pauseTrailing: "Pause Trailing",
     resumeTrailing: "Resume Trailing",
-    cancelOrder: "Cancel Order Immediately",
-    confirmCancel: "Are you sure you want to cancel this order?",
     using: "Using {amount}",
   },
   orderDetail: {

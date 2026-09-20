@@ -1,4 +1,4 @@
-import { SIDES } from "@furious-abacus/sdk";
+import { SIDES } from "@hltape/sdk";
 import { z } from "zod";
 
 export const MARGIN_MODE = { CROSS: "cross", ISOLATED: "isolated" } as const;

@@ -1,6 +1,6 @@
 "use client";
 
-import { ToggleGroup, ToggleGroupItem } from "@furious-abacus/ui/components/toggle-group";
+import { ToggleGroup, ToggleGroupItem } from "@hltape/ui/components/toggle-group";
 import type { ReactNode } from "react";
 
 interface PresetToggleProps<T extends number> {

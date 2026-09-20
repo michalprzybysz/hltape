@@ -1,5 +1,5 @@
 // apps/app/src/lib/useAgentWalletsQuery.ts
-import type { AgentWallet } from "@furious-abacus/sdk";
+import type { AgentWallet } from "@hltape/sdk";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/api";
 

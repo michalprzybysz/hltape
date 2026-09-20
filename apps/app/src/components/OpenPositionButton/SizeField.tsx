@@ -1,12 +1,8 @@
 "use client";
 
-import { Field } from "@furious-abacus/ui/components/field";
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupInput,
-} from "@furious-abacus/ui/components/input-group";
-import { Slider } from "@furious-abacus/ui/components/slider";
+import { Field } from "@hltape/ui/components/field";
+import { InputGroup, InputGroupAddon, InputGroupInput } from "@hltape/ui/components/input-group";
+import { Slider } from "@hltape/ui/components/slider";
 import { type Control, Controller, useWatch } from "react-hook-form";
 import useFormatter from "@/lib/useFormatter";
 import { PresetToggle } from "./PresetToggle";

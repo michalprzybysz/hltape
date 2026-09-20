@@ -12,6 +12,7 @@ interface UpdateOrderBody {
   size?: string | number;
   leverage?: string | number;
   trailingDistance?: string | number;
+  trailing?: boolean;
   [key: string]: unknown;
 }
 
@@ -33,7 +34,7 @@ export async function updateOrder(
       return reply.notFound("Order not found or already closed");
     }
 
-    const changed: Record<string, Decimal> = {};
+    const changed: Record<string, Decimal | boolean> = {};
 
     if (updateData.triggerPrice) {
       changed.triggerPrice = new Decimal(String(updateData.triggerPrice));
@@ -46,6 +47,16 @@ export async function updateOrder(
     }
     if (updateData.trailingDistance) {
       changed.trailingDistance = new Decimal(String(updateData.trailingDistance));
+    }
+    // Pausing is `trailing: false`, so this one is tested by type rather than truthiness.
+    if (typeof updateData.trailing === "boolean") {
+      changed.trailing = updateData.trailing;
+    }
+
+    // drizzle throws "No values to set" on an empty `.set()`, which would surface as a 500.
+    // A body with nothing updatable in it is the caller's mistake, so say so.
+    if (Object.keys(changed).length === 0) {
+      return reply.badRequest("No updatable fields in body");
     }
 
     const updatedOrders = await request.server.db

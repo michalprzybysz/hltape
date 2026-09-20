@@ -1,4 +1,4 @@
-# @furious-abacus/messages
+# @hltape/messages
 
 The i18n message catalogue and its types. English only today; the shape exists so a second locale
 is an additive change rather than a refactor.
@@ -14,7 +14,7 @@ src/
 ## Usage
 
 ```typescript
-import { getMessages, messages } from "@furious-abacus/messages";
+import { getMessages, messages } from "@hltape/messages";
 
 messages.en.positions.title;
 getMessages("en");

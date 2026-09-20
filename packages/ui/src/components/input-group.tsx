@@ -1,9 +1,9 @@
 "use client";
 
-import { Button } from "@furious-abacus/ui/components/button";
-import { Input } from "@furious-abacus/ui/components/input";
-import { Textarea } from "@furious-abacus/ui/components/textarea";
-import { cn } from "@furious-abacus/ui/lib/utils";
+import { Button } from "@hltape/ui/components/button";
+import { Input } from "@hltape/ui/components/input";
+import { Textarea } from "@hltape/ui/components/textarea";
+import { cn } from "@hltape/ui/lib/utils";
 import { cva, type VariantProps } from "class-variance-authority";
 import type * as React from "react";
 

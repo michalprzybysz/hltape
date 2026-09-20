@@ -1,4 +1,4 @@
-import { SIDES } from "@furious-abacus/sdk";
+import { SIDES } from "@hltape/sdk";
 import { useTranslations } from "next-intl";
 import { type Control, useWatch } from "react-hook-form";
 import useFormatter from "@/lib/useFormatter";

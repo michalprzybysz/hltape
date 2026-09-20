@@ -1,9 +1,9 @@
 "use client";
 
 import { Dialog as DialogPrimitive } from "@base-ui/react/dialog";
-import { Button } from "@furious-abacus/ui/components/button";
+import { Button } from "@hltape/ui/components/button";
 
-import { cn } from "@furious-abacus/ui/lib/utils";
+import { cn } from "@hltape/ui/lib/utils";
 import { XIcon } from "lucide-react";
 import type * as React from "react";
 

@@ -1,13 +1,13 @@
 "use client";
 
-import { Button } from "@furious-abacus/ui/components/button";
+import { Button } from "@hltape/ui/components/button";
 import {
   Empty,
   EmptyDescription,
   EmptyHeader,
   EmptyMedia,
   EmptyTitle,
-} from "@furious-abacus/ui/components/empty";
+} from "@hltape/ui/components/empty";
 import * as Sentry from "@sentry/nextjs";
 import { useTranslations } from "next-intl";
 import { useEffect } from "react";

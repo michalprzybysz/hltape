@@ -1,7 +1,7 @@
 // apps/app/src/lib/useLogsQuery.ts
 "use client";
 
-import type { ExecutionLog, GetLogsParams } from "@furious-abacus/sdk";
+import type { ExecutionLog, GetLogsParams } from "@hltape/sdk";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/lib/api";
 

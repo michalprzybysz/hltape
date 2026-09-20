@@ -13,10 +13,10 @@
   "iconLibrary": "lucide",
   "rtl": false,
   "aliases": {
-    "components": "@furious-abacus/ui/components",
-    "utils": "@furious-abacus/ui/lib/utils",
-    "hooks": "@furious-abacus/ui/hooks",
-    "lib": "@furious-abacus/ui/lib",
-    "ui": "@furious-abacus/ui/components"
+    "components": "@hltape/ui/components",
+    "utils": "@hltape/ui/lib/utils",
+    "hooks": "@hltape/ui/hooks",
+    "lib": "@hltape/ui/lib",
+    "ui": "@hltape/ui/components"
   }
 }

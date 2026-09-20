@@ -1,24 +1,18 @@
 // apps/app/src/app/(restricted)/page.tsx
 "use client";
 
-import type { Order } from "@furious-abacus/sdk";
-import { Badge } from "@furious-abacus/ui/components/badge";
-import { buttonVariants } from "@furious-abacus/ui/components/button";
-import {
-  Card,
-  CardAction,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@furious-abacus/ui/components/card";
+import type { Order } from "@hltape/sdk";
+import { Badge } from "@hltape/ui/components/badge";
+import { buttonVariants } from "@hltape/ui/components/button";
+import { Card, CardAction, CardContent, CardHeader, CardTitle } from "@hltape/ui/components/card";
 import {
   Empty,
   EmptyDescription,
   EmptyHeader,
   EmptyMedia,
   EmptyTitle,
-} from "@furious-abacus/ui/components/empty";
-import { Spinner } from "@furious-abacus/ui/components/spinner";
+} from "@hltape/ui/components/empty";
+import { Spinner } from "@hltape/ui/components/spinner";
 import {
   Table,
   TableBody,
@@ -26,8 +20,8 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@furious-abacus/ui/components/table";
-import { cn } from "@furious-abacus/ui/lib/utils";
+} from "@hltape/ui/components/table";
+import { cn } from "@hltape/ui/lib/utils";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import {

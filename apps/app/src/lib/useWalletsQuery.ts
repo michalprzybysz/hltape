@@ -1,5 +1,5 @@
 // apps/app/src/lib/useWalletsQuery.ts
-import type { WalletAddress } from "@furious-abacus/sdk";
+import type { WalletAddress } from "@hltape/sdk";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/lib/api";
 

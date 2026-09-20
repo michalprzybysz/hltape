@@ -4,7 +4,7 @@ import {
   EmptyHeader,
   EmptyMedia,
   EmptyTitle,
-} from "@furious-abacus/ui/components/empty";
+} from "@hltape/ui/components/empty";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { HiOutlineMagnifyingGlass } from "react-icons/hi2";

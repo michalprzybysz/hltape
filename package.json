@@ -1,27 +1,27 @@
 {
-  "name": "@furious-abacus/monorepo",
+  "name": "@hltape/monorepo",
   "version": "1.0.0",
   "private": true,
-  "description": "Furious Abacus — self-hostable trailing stop-loss automation for Hyperliquid perpetuals",
+  "description": "hltape — self-hostable trailing stop-loss automation for Hyperliquid perpetuals",
   "author": "Michał Kamil Przybysz <m.przybysz@blackmoose.pl>",
   "license": "AGPL-3.0-only",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/michalprzybysz/furious-abacus.git"
+    "url": "git+https://github.com/michalprzybysz/hltape.git"
   },
-  "homepage": "https://github.com/michalprzybysz/furious-abacus#readme",
+  "homepage": "https://github.com/michalprzybysz/hltape#readme",
   "bugs": {
-    "url": "https://github.com/michalprzybysz/furious-abacus/issues"
+    "url": "https://github.com/michalprzybysz/hltape/issues"
   },
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "check-types": "turbo run check-types",
-    "db:generate": "pnpm --filter @furious-abacus/api exec drizzle-kit generate",
-    "db:migrate": "pnpm --filter @furious-abacus/api exec drizzle-kit migrate",
-    "db:push": "pnpm --filter @furious-abacus/api exec drizzle-kit push",
-    "db:studio": "pnpm --filter @furious-abacus/api exec drizzle-kit studio"
+    "db:generate": "pnpm --filter @hltape/api exec drizzle-kit generate",
+    "db:migrate": "pnpm --filter @hltape/api exec drizzle-kit migrate",
+    "db:push": "pnpm --filter @hltape/api exec drizzle-kit push",
+    "db:studio": "pnpm --filter @hltape/api exec drizzle-kit studio"
   },
   "devDependencies": {
     "@biomejs/biome": "2.5.14",

@@ -1,5 +1,5 @@
 // apps/app/src/lib/i18n.ts
-import { getMessages } from "@furious-abacus/messages";
+import { getMessages } from "@hltape/messages";
 import { getRequestConfig } from "next-intl/server";
 
 export default getRequestConfig(async () => {

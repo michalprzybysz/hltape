@@ -1,9 +1,9 @@
 // apps/app/src/app/(restricted)/profile/@wallets/page.tsx
 "use client";
 
-import { Badge } from "@furious-abacus/ui/components/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@furious-abacus/ui/components/card";
-import { Empty, EmptyHeader, EmptyMedia, EmptyTitle } from "@furious-abacus/ui/components/empty";
+import { Badge } from "@hltape/ui/components/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@hltape/ui/components/card";
+import { Empty, EmptyHeader, EmptyMedia, EmptyTitle } from "@hltape/ui/components/empty";
 import {
   Item,
   ItemActions,
@@ -12,7 +12,7 @@ import {
   ItemGroup,
   ItemMedia,
   ItemTitle,
-} from "@furious-abacus/ui/components/item";
+} from "@hltape/ui/components/item";
 import { useTranslations } from "next-intl";
 import { HiOutlineWallet } from "react-icons/hi2";
 import { useChains } from "wagmi";

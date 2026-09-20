@@ -1,4 +1,4 @@
-import { Button } from "@furious-abacus/ui/components/button";
+import { Button } from "@hltape/ui/components/button";
 import { useFormStatus } from "react-dom";
 
 const SubmitButton = ({

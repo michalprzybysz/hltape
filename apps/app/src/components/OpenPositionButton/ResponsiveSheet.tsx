@@ -6,15 +6,15 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@furious-abacus/ui/components/dialog";
+} from "@hltape/ui/components/dialog";
 import {
   Drawer,
   DrawerContent,
   DrawerFooter,
   DrawerHeader,
   DrawerTitle,
-} from "@furious-abacus/ui/components/drawer";
-import { useMediaQuery } from "@furious-abacus/ui/hooks/use-media-query";
+} from "@hltape/ui/components/drawer";
+import { useMediaQuery } from "@hltape/ui/hooks/use-media-query";
 import type { ReactNode } from "react";
 
 interface ResponsiveSheetProps {

@@ -1,4 +1,4 @@
-# @furious-abacus/coin-names
+# @hltape/coin-names
 
 Cryptocurrency display-name mapping for Hyperliquid assets: turns the exchange's ticker into
 something readable in the UI.
@@ -8,7 +8,7 @@ something readable in the UI.
 The map itself is module-private. The package exports one function:
 
 ```typescript
-import { getCoinName } from "@furious-abacus/coin-names";
+import { getCoinName } from "@hltape/coin-names";
 
 getCoinName("BTC"); // "Bitcoin"
 getCoinName("eth"); // "Ethereum"  — the lookup retries uppercased

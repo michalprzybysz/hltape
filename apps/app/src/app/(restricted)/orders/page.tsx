@@ -1,24 +1,24 @@
 // apps/app/src/app/(restricted)/orders/page.tsx
 "use client";
 
-import type { Order } from "@furious-abacus/sdk";
-import { Badge } from "@furious-abacus/ui/components/badge";
-import { Button, buttonVariants } from "@furious-abacus/ui/components/button";
+import type { Order } from "@hltape/sdk";
+import { Badge } from "@hltape/ui/components/badge";
+import { Button, buttonVariants } from "@hltape/ui/components/button";
 import {
   Empty,
   EmptyDescription,
   EmptyHeader,
   EmptyMedia,
   EmptyTitle,
-} from "@furious-abacus/ui/components/empty";
+} from "@hltape/ui/components/empty";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@furious-abacus/ui/components/select";
-import { Spinner } from "@furious-abacus/ui/components/spinner";
+} from "@hltape/ui/components/select";
+import { Spinner } from "@hltape/ui/components/spinner";
 import {
   Table,
   TableBody,
@@ -26,13 +26,13 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@furious-abacus/ui/components/table";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@furious-abacus/ui/components/tooltip";
+} from "@hltape/ui/components/table";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@hltape/ui/components/tooltip";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { Suspense, useMemo, useState } from "react";
-import { HiOutlineRefresh, HiOutlineShieldCheck, HiPause, HiPlay, HiX } from "react-icons/hi";
+import { HiOutlineRefresh, HiOutlineShieldCheck, HiPause, HiPlay } from "react-icons/hi";
 import { PositionInstrument } from "@/components/PositionInstrument";
 import { PositionSide } from "@/components/PositionSide";
 import { TrailingHealthBar } from "@/components/TrailingHealthBar";
@@ -104,20 +104,6 @@ function OrdersPageContent() {
       await toggleMutation.mutateAsync({ id: order.id, data: { trailing: !order.trailing } });
     } catch (err) {
       console.error("Failed to toggle trailing", err);
-    } finally {
-      setProcessingId(null);
-    }
-  };
-
-  const handleCancelOrder = async (orderId: string) => {
-    if (!confirm(t("confirmCancel"))) return;
-
-    setProcessingId(orderId);
-    try {
-      // TODO: implement cancel order endpoint
-      console.log(`Cancelling order ${orderId}`);
-    } catch (err) {
-      console.error("Failed to cancel order", err);
     } finally {
       setProcessingId(null);
     }
@@ -255,51 +241,32 @@ function OrdersPageContent() {
                       {/* ACTIONS */}
                       <TableCell className="text-right">
                         {order.status === "open" ? (
-                          <div className="flex justify-end gap-2">
-                            {/* Play / Pause Button */}
-                            <Tooltip>
-                              <TooltipTrigger
-                                render={
-                                  <Button
-                                    size="xs"
-                                    className={
-                                      order.trailing
-                                        ? "bg-yellow-600 text-white hover:bg-yellow-700 border-yellow-600"
-                                        : "bg-green-600 text-white hover:bg-green-700 border-green-600"
-                                    }
-                                    onClick={() => handleToggleTrailing(order)}
-                                    disabled={isProcessing}
-                                  />
-                                }
-                              >
-                                {order.trailing ? (
-                                  <HiPause className="h-4 w-4" />
-                                ) : (
-                                  <HiPlay className="h-4 w-4" />
-                                )}
-                              </TooltipTrigger>
-                              <TooltipContent>
-                                {order.trailing ? t("pauseTrailing") : t("resumeTrailing")}
-                              </TooltipContent>
-                            </Tooltip>
-
-                            {/* Cancel / Panic Button */}
-                            <Tooltip>
-                              <TooltipTrigger
-                                render={
-                                  <Button
-                                    size="xs"
-                                    variant="destructive"
-                                    onClick={() => handleCancelOrder(order.id)}
-                                    disabled={isProcessing}
-                                  />
-                                }
-                              >
-                                <HiX className="h-4 w-4" />
-                              </TooltipTrigger>
-                              <TooltipContent>{t("cancelOrder")}</TooltipContent>
-                            </Tooltip>
-                          </div>
+                          /* Play / Pause Button */
+                          <Tooltip>
+                            <TooltipTrigger
+                              render={
+                                <Button
+                                  size="xs"
+                                  className={
+                                    order.trailing
+                                      ? "bg-yellow-600 text-white hover:bg-yellow-700 border-yellow-600"
+                                      : "bg-green-600 text-white hover:bg-green-700 border-green-600"
+                                  }
+                                  onClick={() => handleToggleTrailing(order)}
+                                  disabled={isProcessing}
+                                />
+                              }
+                            >
+                              {order.trailing ? (
+                                <HiPause className="h-4 w-4" />
+                              ) : (
+                                <HiPlay className="h-4 w-4" />
+                              )}
+                            </TooltipTrigger>
+                            <TooltipContent>
+                              {order.trailing ? t("pauseTrailing") : t("resumeTrailing")}
+                            </TooltipContent>
+                          </Tooltip>
                         ) : (
                           <span className="text-xs text-gray-400">&mdash;</span>
                         )}

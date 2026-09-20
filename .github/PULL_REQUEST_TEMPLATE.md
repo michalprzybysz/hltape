@@ -1,3 +1,8 @@
+> **This project is unmaintained.** Nobody reviews pull requests here and nothing will be merged —
+> see the notice at the top of the README. Opening one is still useful as a public record for other
+> people running the code, but expect no reply. The licence gives you the better route: fork it and
+> merge it there.
+
 ## Summary
 
 <!-- What this changes and why, in a few sentences. -->
@@ -29,7 +34,7 @@
 
 - [ ] `pnpm lint` passes
 - [ ] `pnpm check-types` passes
-- [ ] `pnpm --filter @furious-abacus/api test` passes (if this touches the API)
+- [ ] `pnpm --filter @hltape/api test` passes (if this touches the API)
 - [ ] The PR title is a Conventional Commit (`feat:`, `fix:`, `docs:`, ...) — commitlint rejects
       anything else
 - [ ] No secrets committed: no `.env`, no private key, no agent-wallet key, no `MASTER_KEY_HEX`,

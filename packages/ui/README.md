@@ -1,4 +1,4 @@
-# @furious-abacus/ui
+# @hltape/ui
 
 Shared UI primitives for `apps/app`, generated with the shadcn CLI on the `base-nova` style.
 
@@ -18,9 +18,9 @@ src/
 ## Usage
 
 ```typescript
-import { Button } from "@furious-abacus/ui/components/button";
-import { cn } from "@furious-abacus/ui/lib/utils";
-import { useMediaQuery } from "@furious-abacus/ui/hooks/use-media-query";
+import { Button } from "@hltape/ui/components/button";
+import { cn } from "@hltape/ui/lib/utils";
+import { useMediaQuery } from "@hltape/ui/hooks/use-media-query";
 ```
 
 The exports map is `./components/*`, `./lib/*`, `./hooks/*` and `./styles/*` — there is no barrel
@@ -35,7 +35,7 @@ at `packages/ui/src`, which is how classes used only inside this package survive
 hand-editing it, so a later regeneration does not quietly revert your change:
 
 ```bash
-pnpm --filter @furious-abacus/ui exec shadcn add <component>
+pnpm --filter @hltape/ui exec shadcn add <component>
 ```
 
 That uses the `shadcn` version pinned in this package's devDependencies rather than whatever

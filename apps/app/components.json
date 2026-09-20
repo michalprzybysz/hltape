@@ -14,8 +14,8 @@
   "rtl": false,
   "aliases": {
     "components": "@/components",
-    "utils": "@furious-abacus/ui/lib/utils",
-    "ui": "@furious-abacus/ui/components",
+    "utils": "@hltape/ui/lib/utils",
+    "ui": "@hltape/ui/components",
     "lib": "@/lib",
     "hooks": "@/hooks"
   },

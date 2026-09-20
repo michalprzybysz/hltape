@@ -1,18 +1,8 @@
 "use client";
 
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@furious-abacus/ui/components/dialog";
-import {
-  Drawer,
-  DrawerContent,
-  DrawerHeader,
-  DrawerTitle,
-} from "@furious-abacus/ui/components/drawer";
-import { useMediaQuery } from "@furious-abacus/ui/hooks/use-media-query";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@hltape/ui/components/dialog";
+import { Drawer, DrawerContent, DrawerHeader, DrawerTitle } from "@hltape/ui/components/drawer";
+import { useMediaQuery } from "@hltape/ui/hooks/use-media-query";
 import { useTranslations } from "next-intl";
 import { PerpSearchPanel } from "./PerpSearchPanel";
 import type { CoinOption } from "./types";

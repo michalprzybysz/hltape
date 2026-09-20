@@ -1,7 +1,7 @@
 // apps/app/src/lib/usePositionsQuery.ts
 "use client";
 
-import type { OpenPositionRequest, PositionsResponse } from "@furious-abacus/sdk";
+import type { OpenPositionRequest, PositionsResponse } from "@hltape/sdk";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { api } from "@/lib/api";
 

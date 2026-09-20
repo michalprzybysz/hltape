@@ -1,1 +1,1 @@
-export { getCoinName } from "@furious-abacus/coin-names";
+export { getCoinName } from "@hltape/coin-names";

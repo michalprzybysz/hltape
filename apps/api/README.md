@@ -1,4 +1,4 @@
-# @furious-abacus/api
+# @hltape/api
 
 Execution engine for trailing stop-loss orders on Hyperliquid. One Fastify process that spawns six
 worker threads and serves the HTTP API the dashboard talks to.
@@ -56,7 +56,7 @@ cp apps/api/.env.example apps/api/.env
 # Fill in DATABASE_URL, BETTER_AUTH_SECRET, BETTER_AUTH_URL, APP_ORIGIN, MASTER_KEY_HEX
 pnpm install
 pnpm db:migrate          # root script; apps/api itself has only db:migrate:prod
-pnpm --filter @furious-abacus/api dev
+pnpm --filter @hltape/api dev
 ```
 
 The server refuses to boot if a required variable is missing and prints every problem at once, by

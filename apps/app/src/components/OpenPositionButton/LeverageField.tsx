@@ -1,7 +1,7 @@
 "use client";
 
-import { Field, FieldError } from "@furious-abacus/ui/components/field";
-import { Slider } from "@furious-abacus/ui/components/slider";
+import { Field, FieldError } from "@hltape/ui/components/field";
+import { Slider } from "@hltape/ui/components/slider";
 import { useTranslations } from "next-intl";
 import { useMemo } from "react";
 import { type Control, Controller } from "react-hook-form";

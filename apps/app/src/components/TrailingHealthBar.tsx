@@ -1,8 +1,8 @@
 // apps/app/src/components/TrailingHealthBar.tsx
 "use client";
 
-import type { AllMidsResponse, Order } from "@furious-abacus/sdk";
-import { cn } from "@furious-abacus/ui/lib/utils";
+import type { AllMidsResponse, Order } from "@hltape/sdk";
+import { cn } from "@hltape/ui/lib/utils";
 import { useTranslations } from "next-intl";
 import { useAllMidsQuery } from "@/lib/hyperliquid/useAllMidsQuery";
 import useFormatter from "@/lib/useFormatter";

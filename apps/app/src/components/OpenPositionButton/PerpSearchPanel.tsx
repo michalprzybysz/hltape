@@ -1,8 +1,8 @@
 "use client";
 
-import { Badge } from "@furious-abacus/ui/components/badge";
-import { Input } from "@furious-abacus/ui/components/input";
-import { Spinner } from "@furious-abacus/ui/components/spinner";
+import { Badge } from "@hltape/ui/components/badge";
+import { Input } from "@hltape/ui/components/input";
+import { Spinner } from "@hltape/ui/components/spinner";
 import { useTranslations } from "next-intl";
 import { useMemo, useState } from "react";
 import { HiOutlineSearch } from "react-icons/hi";

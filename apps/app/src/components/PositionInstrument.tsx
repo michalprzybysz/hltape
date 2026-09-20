@@ -1,5 +1,5 @@
 // apps/app/src/components/PositionInstrument.tsx
-import { cn } from "@furious-abacus/ui/lib/utils";
+import { cn } from "@hltape/ui/lib/utils";
 import { InstrumentLogo } from "@/components/InstrumentLogo";
 
 interface InstrumentProps {

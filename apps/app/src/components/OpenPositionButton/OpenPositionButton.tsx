@@ -1,7 +1,7 @@
 "use client";
 
-import { SIDES } from "@furious-abacus/sdk";
-import { Button } from "@furious-abacus/ui/components/button";
+import { SIDES } from "@hltape/sdk";
+import { Button } from "@hltape/ui/components/button";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useTranslations } from "next-intl";
 import { useEffect, useMemo, useState } from "react";

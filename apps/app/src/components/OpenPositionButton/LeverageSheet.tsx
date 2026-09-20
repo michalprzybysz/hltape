@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@furious-abacus/ui/components/button";
+import { Button } from "@hltape/ui/components/button";
 import { useTranslations } from "next-intl";
 import type { Control, UseFormTrigger } from "react-hook-form";
 import { LeverageField } from "./LeverageField";

@@ -1,10 +1,10 @@
 // apps/app/src/components/PositionRow.tsx
 "use client";
 
-import type { Order, Position } from "@furious-abacus/sdk";
-import { Badge } from "@furious-abacus/ui/components/badge";
-import { Button, buttonVariants } from "@furious-abacus/ui/components/button";
-import { TableCell, TableRow } from "@furious-abacus/ui/components/table";
+import type { Order, Position } from "@hltape/sdk";
+import { Badge } from "@hltape/ui/components/badge";
+import { Button, buttonVariants } from "@hltape/ui/components/button";
+import { TableCell, TableRow } from "@hltape/ui/components/table";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { HiShieldCheck } from "react-icons/hi";

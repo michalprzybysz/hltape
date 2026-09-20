@@ -1,9 +1,9 @@
 // apps/app/src/app/(restricted)/positions/page.tsx
 "use client";
 
-import type { Position } from "@furious-abacus/sdk";
-import { Button } from "@furious-abacus/ui/components/button";
-import { Spinner } from "@furious-abacus/ui/components/spinner";
+import type { Position } from "@hltape/sdk";
+import { Button } from "@hltape/ui/components/button";
+import { Spinner } from "@hltape/ui/components/spinner";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { HiOutlineRefresh } from "react-icons/hi";

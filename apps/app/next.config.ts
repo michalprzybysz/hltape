@@ -14,7 +14,7 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   reactCompiler: true,
-  transpilePackages: ["@furious-abacus/messages"],
+  transpilePackages: ["@hltape/messages"],
   images: {
     remotePatterns: [
       {
